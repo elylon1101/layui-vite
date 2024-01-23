@@ -1,0 +1,45 @@
+<input v-model="community">小区数量</input>
+<br>
+<input v-model="community">小区数量</input>
+<br>
+<div class="layui-card-body">
+    <p class="">小区数量{{ community }}</p>
+</div>
+<br>
+<br>
+
+<input v-model="contract">合同数量</input>
+<br>
+<p class="">合同数量{{ contract }}</p>
+<br>
+<button v-on:click="addContract()" :title='contract' :style="background-color: {{contract}};">添加合同</button>
+<br>
+
+<br><br>
+<button class="layui-btn" v-on:click="addOrEditDemand()">发布需求</button>
+<br>
+<br>
+<span class="">每秒自动递增：{{ auto }}</span>
+<br>
+<br>
+
+<span>{{ JSON.stringify(orders) }}</span>
+<br>
+<br>
+<span v-html="htmlDom"></span>
+
+<br>
+<br>
+<span>列表循环演示</span>
+<br>
+<br>
+<button v-on:click="addOrder()" :title='添加订单'>添加订单</button>
+<br>
+<div>
+    <div v-for="(order,index) in orders" style="margin-bottom: 20px;">
+        <span style="float: left;margin-right: 20px;">
+            {{order.name}}
+        </span>
+        <button v-on:click="deleteOrder(index)">删除</button>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layui-Vite</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="module">
+    import 'layui/dist/css/layui.css'
+    import './public/app.css'
+    import 'layui'
+    import './src/util/GlobalUtils.js'
+    import { PageUtils } from "./src/framework/PageUtils.js";
+    import { Permissions } from "./src/framework/Permissions.js";
+    import { LoadLayuiModelUtil } from "./src/framework/LoadLayuiModelUtil.js";
+
+    // 开起mock
+    import './mock/mock.js'
+    // 加载layui的第三方库
+    LoadLayuiModelUtil.load([ "layarea", "inputTag" ]).then(() => {
+        Permissions.exec();
+        //访问index
+        PageUtils.toIndex().then();
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<div class="admin-page">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-xs12 layui-col-sm3 layui-col-md3">
+            <div class="layui-card panel">
+                <div class="layui-card-header">
+                    用户数量<span class="layui-badge layui-bg-orange" lay-tips="用户数量">个</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="">{{ users }}</p>
+                </div>
+                <div class="admin-card-footer">
+                    <span class="">VIP数量：<span>{{ userVips }}</span>个</span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm3 layui-col-md3">
+            <div class="layui-card panel">
+                <div class="layui-card-header">
+                    下单量<span class="layui-badge layui-bg-green" lay-tips="用户下单量">单</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="">{{ orders }}</p>
+                </div>
+                <div class="admin-card-footer">
+                    <span class="">发货数量：<span>{{ deliveries }}</span>单</span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm3 layui-col-md3">
+            <div class="layui-card panel">
+                <div class="layui-card-header">
+                    订单金额<span class="layui-badge layui-bg-cyan" lay-tips="订单金额">元</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="">{{ totalOrderMoney}}</p>
+                </div>
+                <div class="admin-card-footer">
+                    <span class="">退款金额：<span>{{ totalRefundMoney }}</span>元</span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm3 layui-col-md3">
+            <div class="layui-card panel">
+                <div class="layui-card-header">
+                    赔付数量<span class="layui-badge layui-bg-green" lay-tips="订单赔付数量">单</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class=" totalNotPayCash">{{ compensation }}</p>
+                </div>
+                <div class="admin-card-footer">
+                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-warm" lay-event="showPublishNoticeLayer">订单记录</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+            <div class="layui-card panel chart">
+                <div class="layui-card-header">
+                    <div>交易订单：待支付{{ orderStatus0 }}单，待发货{{ orderStatus1 }}单，已发货{{ orderStatus2 }}单，已收货{{ orderStatus3 }}单，已取消{{ orderStatus4 }}单</div>
+                </div>
+                <div class="layui-card-body orderCharts"></div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+            <div class="layui-card panel chart">
+                <div class="layui-card-header">
+                    <div>订单列表</div>
+                    <div class="layui-form" style="width: 150px;">
+                        <input name="month" class="layui-input"/>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table id="table" lay-filter="table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

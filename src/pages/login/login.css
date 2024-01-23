@@ -1,0 +1,61 @@
+.login-form {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.login-container {
+    width: 340px;
+    height: 350px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.login-container .project {
+    margin-bottom: 20px;
+}
+
+.login-container .project .title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 300;
+    font-size: 24px;
+    color: #333;
+    width: 96px;
+}
+
+.login-container .login-other .layui-icon {
+    position: relative;
+    display: inline-block;
+    margin: 0 2px;
+    top: 2px;
+    font-size: 26px;
+}
+
+.login-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+.login-form .box-left {
+    width: 510px;
+    height: 420px;
+    position: relative;
+}
+
+.login-form .box-left span {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 500;
+}

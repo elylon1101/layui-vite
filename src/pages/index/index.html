@@ -1,0 +1,47 @@
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header layui-bg-blue">
+        <div class="layui-logo layui-hide-xs" style="background-color: #0085E8 !important; color: white;">
+        	<img src="/images/logo.png" style="width: 26px;" /> {{ projectName }}
+        </div>
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item layui-show-xs-inline-block" lay-event="menuLeft">
+                <i class="layui-icon layui-icon-spread-left"></i>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" style="margin-left: 10px;">
+            	<span>{{ projectName }}</span>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" style="margin-right: 16px;">
+            <li class="layui-nav-item layui-hide-xs" lay-unselect lay-tips="全屏">
+                <a href="javascript:;" lay-event="changeScreen">
+                    <i class="layui-icon layui-icon-screen-full full-screen"></i>
+                </a>
+            </li>
+            <li class="layui-nav-item" lay-unselect lay-tips="刷新">
+                <a href="javascript:;" lay-event="refresh">
+                    <i class="layui-icon layui-icon-refresh-3"></i>
+                </a>
+            </li>
+            <li class="layui-nav-item layui-hide layui-show-sm-inline-block">
+                <a href="javascript:;">
+                    <!--<img src="//unpkg.com/outeres@0.0.10/img/layui/icon-v2.png" class="layui-nav-img">-->
+                    <span class="admin-name">test</span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd lay-event="updPwd"><a href="javascript:;">修改密码</a></dd>
+                    <dd lay-event="logout"><a href="javascript:;">退出登录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-side layui-side-menu layui-bg-black">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree" lay-filter="menu" v-html="menuDom"></ul>
+        </div>
+    </div>
+    <div class="layui-body layui-bg-gray" id="page-body">
+    </div>
+    <div class="layui-footer">
+        底部固定区域
+    </div>
+</div>
