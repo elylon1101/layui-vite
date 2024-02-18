@@ -23,6 +23,7 @@ export class FormUtils {
         options.valueKey = options.valueKey || 'id';
         options.nameKey = options.nameKey || 'name';
         options.defaultValue = options.defaultValue || '';
+        options.defaultText = options.defaultText || '';
         let res = await Request.get(options.url, options.reqData);
         let dom = res.data.map(item => `<option value="${ item[options.valueKey] }" ${ item[options.valueKey] === options.selectValue ? 'selected ' : '' }>${ options.getName ? options.getName(item) : item[options.nameKey] }</option>`).join(' ')
         layui.$(options.selector).empty().append(`<option value="${ options.defaultValue }">${ options.defaultText }</option>`).append(dom);
