@@ -1,5 +1,18 @@
 export class LoginCanvasUtil {
+
+    static status = 0
+
+    static start() {
+        this.status = 1
+        this.draw()
+    }
+
+    static stop() {
+        this.status = 0
+    }
+
     static draw() {
+        let that = this;
         let canvas = document.getElementById('canvas'),
             ctx = canvas.getContext('2d'),
             w = canvas.width = window.innerWidth,
@@ -86,9 +99,22 @@ export class LoginCanvasUtil {
             for (let i = 1, l = stars.length; i < l; i++) {
                 stars[i].draw();
             }
-            window.requestAnimationFrame(animation);
+            if (that.status) window.requestAnimationFrame(animation);
         }
 
+        window.addEventListener('resize', () => {
+            w = canvas.width = window.innerWidth
+            h = canvas.height = window.innerHeight
+        });
         animation();
+        setTimeout(() => {
+            w = canvas.width = window.innerWidth
+            h = canvas.height = window.innerHeight
+        }, 50)
+    }
+
+    static clear() {
+        // 清除动画
+
     }
 }

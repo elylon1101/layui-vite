@@ -1,4 +1,4 @@
-import { Request } from "./Request.js";
+import { Http } from "./Http.js";
 
 /**
  * @typedef {Object} RenderSelectOptions
@@ -17,16 +17,17 @@ export class FormUtils {
     /**
      * 渲染下拉框
      * @param  {RenderSelectOptions} options
-     * @return {Promise<void>}
+     * @return {Promise<any>}
      */
-    async renderSelect(options) {
+    static async renderSelect(options) {
         options.valueKey = options.valueKey || 'id';
         options.nameKey = options.nameKey || 'name';
         options.defaultValue = options.defaultValue || '';
         options.defaultText = options.defaultText || '';
-        let res = await Request.get(options.url, options.reqData);
+        let res = await Http.get(options.url, options.reqData);
         let dom = res.data.map(item => `<option value="${ item[options.valueKey] }" ${ item[options.valueKey] === options.selectValue ? 'selected ' : '' }>${ options.getName ? options.getName(item) : item[options.nameKey] }</option>`).join(' ')
         layui.$(options.selector).empty().append(`<option value="${ options.defaultValue }">${ options.defaultText }</option>`).append(dom);
         layui.form.render('select');
+        return res
     }
 }

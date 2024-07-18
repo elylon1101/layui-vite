@@ -1,0 +1,134 @@
+$color: #ff5722;
+
+*[lay-verify*="required"] {
+    border-color: $color;
+}
+
+.layui-input-group:has([lay-verify*="required"]) {
+    .layui-input-prefix {
+        color: $color;
+
+        &:after {
+            content: '*';
+        }
+    }
+}
+
+.layui-form-item:has([lay-verify*="required"]) {
+    .layui-form-label {
+        color: $color;
+
+        &:after {
+            content: '*';
+        }
+    }
+}
+
+select[lay-verify*="required"] + .layui-form-select .layui-input {
+    border-color: $color;
+}
+
+/* Flex横向布局  */
+.Flex-start {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.Flex-start-end {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.Flex-between {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Flex-around {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Flex-center {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Flex-end {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Flex垂直布局 */
+.Flex-center-col {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Flex-start-col {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.Flex-between-col {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.Flex-around-col {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.layui-form.layui-card-header {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    height: auto;
+}
+
+.layui-form .layui-input-prefix {
+    width: 100px;
+    text-align: left;
+}
+
+.table-image img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+}
+
+.table-image.long img {
+    width: 80px;
+    object-fit: cover;
+}
+

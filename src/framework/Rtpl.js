@@ -40,6 +40,7 @@ export class Rtpl {
     }
 
     start(el, template) {
+        if (!el) return
         // 将dom字符串解析为dom对象
         let templateDom
         if (Rtpl.templateCache.get(template)) {

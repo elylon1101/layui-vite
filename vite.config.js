@@ -6,6 +6,9 @@ export default defineConfig({
     plugins: [eslintPlugin({
         include: ['src/**/*.js']
     })],
+    css: {
+        devSourcemap: true
+    },
     esbuild: {
         pure: ['console.log'],
         drop: ['debugger'],

@@ -22,6 +22,7 @@ export class CacheService {
          * 系统配置
          */
         config: 'config',
+        adminInfo: 'adminInfo',
         configSubKey: {
             /**
              * 高德地图web页面的key
@@ -109,6 +110,18 @@ export class CacheService {
             localStorage.setItem(CacheService.cacheKey.config, JSON.stringify(value))
         } else {
             localStorage.removeItem(CacheService.cacheKey.config)
+        }
+    }
+
+    static get adminInfo() {
+        return JSON.parse(localStorage.getItem(CacheService.cacheKey.adminInfo))
+    }
+
+    static set adminInfo(value) {
+        if (value) {
+            localStorage.setItem(CacheService.cacheKey.adminInfo, JSON.stringify(value))
+        } else {
+            localStorage.removeItem(CacheService.cacheKey.adminInfo)
         }
     }
 }

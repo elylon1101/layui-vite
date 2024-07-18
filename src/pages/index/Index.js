@@ -1,6 +1,6 @@
 import { Page } from "../../framework/Page.js";
 import { Login } from "../login/Login.js";
-import { Request } from "../../util/Request.js";
+import { Http } from "../../util/Http.js";
 import { MenuUtils } from "../../framework/MenuUtils.js";
 import { PageUtils } from "../../framework/PageUtils.js";
 import './menu.css'
@@ -14,9 +14,9 @@ export class Index extends Page {
     async onLoad() {
         Login.checkDevice();
         await Login.checkLogin()
-        Request.get(`system/getConfig`).then(res => CacheService.systemConfig = res.data)
+        Http.get(`system/getConfig`).then(res => CacheService.systemConfig = res.data)
         // 加载菜单
-        Request.get(`admin/getMenu`).then(async menuRes => {
+        Http.get(`admin/getMenu`).then(async menuRes => {
             this.renderData.menuDom = MenuUtils.genMenuDom(menuRes.data)
             // 尝试打开最后一次打开的页面，没成功就打开第一个页面
             if (!await PageUtils.openLastPage(this)) {
@@ -32,7 +32,7 @@ export class Index extends Page {
                 layui.layer.msg('展开左侧菜单的操作', { icon: 0 });
             },
             logout: async () => {
-                await Request.post(`admin/logout`)
+                await Http.post(`admin/logout`)
                 CacheService.token = undefined
                 await PageUtils.toLogin()
             },
@@ -66,7 +66,7 @@ export class Index extends Page {
                         layui.form.submit('updatePwdForm', async (formCommitData) => {
                             formCommitData.field.oriPwd = MD5.hash(formCommitData.field.oriPwd);
                             formCommitData.field.newPwd = MD5.hash(formCommitData.field.newPwd);
-                            await Request.post(`admin/updPwd`, formCommitData.field)
+                            await Http.post(`admin/updPwd`, formCommitData.field)
                             layui.layer.msg('修改成功')
                             layui.layer.close(index);
                         });

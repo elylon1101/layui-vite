@@ -1,5 +1,5 @@
 import { Page } from "../../framework/Page.js";
-import { Request } from "../../util/Request.js";
+import { Http } from "../../util/Http.js";
 import { StatusFormatUtils } from "../../util/StatusFormatUtils.js";
 import './dashboard.css'
 import { PageUtils } from "../../framework/PageUtils.js";
@@ -12,7 +12,7 @@ export class Dashboard extends Page {
     listenEventMsg = undefined
 
     async onLoad() {
-        Request.get(`dashboard/data`).then(res => {
+        Http.get(`dashboard/data`).then(res => {
             this.renderData.users = res.data.users
             this.renderData.userVips = res.data.userVips
             this.renderData.orders = res.data.orders

@@ -1,5 +1,6 @@
 import { Rtpl } from "./Rtpl.js";
 import { PageManage } from "./PageManage.js";
+import { PageUtils } from "./PageUtils.js";
 
 export class Page {
     el
@@ -24,6 +25,7 @@ export class Page {
     destroyLastPage() {
         if (!this.el) return
         let $Element = layui.$(this.el)[0];
+        if (!$Element) return
         let oldPage = $Element.getAttribute('page');
         let previousPage = PageManage.getPageByKey(oldPage);
         if (previousPage) {
@@ -40,12 +42,17 @@ export class Page {
             await this.onLoad()
             await this.render()
             await this.onShow()
+            await this.event()
         } catch (e) {
             console.log(e)
         }
     }
 
-    render() {
+    /**
+     * 渲染页面
+     * @returns {Promise<void>}
+     */
+    async render() {
         if (this.node) {
             new Rtpl(this).start(layui.$(this.el)[0], this.node.replaceAll('\r\n', ''))
             layui.$(this.el).find(`.admin-page`).removeClass(Page.animName).addClass(Page.animName)
@@ -56,15 +63,57 @@ export class Page {
         }
     }
 
-    onLoad() {
+    /**
+     * 页面加载后渲染前执行
+     * @returns {Promise<void>}
+     */
+    async onLoad() {
 
     }
 
-    onShow() {
+    /**
+     * 页面渲染后执行
+     * @returns {Promise<void>}
+     */
+    async onShow() {
 
+    }
+
+    /**
+     * 自动绑定事件，在onShow之后执行
+     * 给页面片段里面所有带有click属性的元素注册点击事件
+     * 注意：只会给node里面的元素绑定事件，后续动态添加的需要手动绑定事件，可以使用this.bindClickEvent(handler)
+     * @returns {Promise<void>}
+     */
+    async event() {
+        if (this.node) {
+            // 找出字符串里面所有包含的lay-event属性并获取属性值
+            let layEvent = this.node.match(/click="[^"]*"/g)?.map(match => match.slice(7, -1))?.filter(x => x !== '')
+            this.bindClickEvent(layEvent)
+        }
+    }
+
+    /**
+     * 绑定点击事件
+     * @param {string|string[]} handler 事件处理函数名称
+     */
+    bindClickEvent(handler) {
+        let events = []
+        if (!Array.isArray(handler)) {
+            events = [handler]
+        } else {
+            events = handler
+        }
+        events?.forEach(event => {
+            layui.$(`[click="${ event }"]`).off('click').on('click', this[event]?.bind(this))
+        })
     }
 
     destroyed() {
         console.log("页面被销毁", this.el, this.pagePath);
+    }
+
+    refresh() {
+        PageUtils.openLastPage(this).then()
     }
 }

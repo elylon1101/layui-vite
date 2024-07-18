@@ -1,5 +1,5 @@
 import { Page } from "../../framework/Page.js";
-import { Request } from "../../util/Request.js";
+import { Http } from "../../util/Http.js";
 import { config } from "../../config.js";
 import { default as addOrEditBannerForm } from "./addOrEditBannerForm.html?raw"
 import { createEditor, createToolbar } from "@wangeditor/editor";
@@ -88,7 +88,7 @@ export class Banner extends Page {
                     break
                 case `delete`:
                     layui.layer.confirm('确定要删除当前BANNER吗？', { btnAlign: 'c' }, async function (index) {
-                        await Request.post(`banner/delete`, { id: obj.data.id })
+                        await Http.post(`banner/delete`, { id: obj.data.id })
                         layui.layer.msg(`删除成功`)
                         layui.layer.close(index);
                         layui.table.reloadData(`table`)
@@ -112,7 +112,7 @@ export class Banner extends Page {
         });
         layui.form.on('switch(table-data-status)', async (obj) => {
             let status = obj.elem.checked ? 0 : 1
-            await Request.post(`banner/addOrEdit`, { id: obj.elem.id, status })
+            await Http.post(`banner/addOrEdit`, { id: obj.elem.id, status })
             layui.layer.msg(`状态修改成功`)
         });
     }
@@ -204,7 +204,7 @@ export class Banner extends Page {
                     let time = formCommitData.field.time.split(` - `)
                     formCommitData.field.beginTime = time[0]
                     formCommitData.field.endTime = time[1]
-                    await Request.post(`banner/addOrEdit`, formCommitData.field)
+                    await Http.post(`banner/addOrEdit`, formCommitData.field)
                     layui.table.reloadData(`table`)
                     layui.layer.close(index);
                 });
@@ -213,7 +213,7 @@ export class Banner extends Page {
     }
 
     async renderCommunity(el) {
-        let communityRes = await Request.get(`community/page`, { limit: 0 }, false);
+        let communityRes = await Http.get(`community/page`, { limit: 0 }, false);
         let dom = communityRes.data?.map(x => `<option value="${ x.id }">${ x.name }</option>`).join("");
         layui.$(el).html(`<option value="">选择小区</option>` + dom)
         layui.form.render()

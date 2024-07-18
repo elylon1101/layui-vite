@@ -14,7 +14,7 @@ export class MenuUtils {
             // 判断是否有下级
             let hasChildren = menu.children && menu.children.length > 0
             let dataPage = hasChildren || !menu.link ? '' : `data-page="${ menu.link }"`
-            dom += `<${ isChild ? `dl` : 'li' } class="layui-nav-item">`
+            dom += `<${ isChild ? `dl` : 'li' } class="layui-nav-item" ${ menu.attr }>`
             dom += `<a ${ dataPage } href="javascript:;">${ icon }${ menu.name }</a>`
             if (hasChildren) {
                 dom += `<dl class="layui-nav-child">`

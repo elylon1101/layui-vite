@@ -1,6 +1,6 @@
 import { Page } from "../../framework/Page.js";
 import AMapLoader from '@amap/amap-jsapi-loader';
-import { Request } from "../../util/Request.js";
+import { Http } from "../../util/Http.js";
 import mapPng from '../../../public/images/map-blue.png'
 import { CacheService } from "../../CacheService.js";
 
@@ -19,7 +19,7 @@ export class Map extends Page {
      * @returns {Promise<AMap.Marker[]>}
      */
     async getMarkers(AMap) {
-        let res = await Request.get(`map/markers`);
+        let res = await Http.get(`map/markers`);
         if (!res.data || res.data.length === 0) {
             return []
         }

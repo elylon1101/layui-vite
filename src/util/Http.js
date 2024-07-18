@@ -2,9 +2,9 @@ import { config } from "../config.js";
 import { PageUtils } from "../framework/PageUtils.js";
 import { CacheService } from "../CacheService.js";
 
-export class Request {
+export class Http {
 
-    static newFetch = Request.createFetchWithTimeout(10 * 1000)
+    static newFetch = Http.createFetchWithTimeout(10 * 1000)
 
     static createFetchWithTimeout(timeout = 1000) {
         return function (url, options) {
@@ -19,9 +19,9 @@ export class Request {
         }
     }
 
-    static async get(url, data = {}, openLoad = true) {
+    static async get(url, data = {}, options = { openLoad: true, showMsg: true }) {
         let loadIndex;
-        if (openLoad) loadIndex = layui.layer.load(0, { id: 'RequestLoad' })
+        if (options?.openLoad) loadIndex = layui.layer.load(0, { id: 'RequestLoad' })
         if (data) {
             let param = Object.keys(data).map(key => `&${ key }=${ data[key] }`).join('')
             if (url.includes('?')) {
@@ -31,8 +31,8 @@ export class Request {
             }
         }
         try {
-            let res = await Request.newFetch(config.API_URI + url, { headers: { [config.TOKEN]: CacheService.token } }).then(resp => resp.json());
-            return await Request.requestSuccess(res, loadIndex);
+            let res = await Http.newFetch(config.API_URI + url, { headers: { [config.TOKEN]: CacheService.token } }).then(resp => resp.json());
+            return await Http.requestSuccess(res, loadIndex, options);
         } catch (e) {
             loadIndex && layui.layer.close(loadIndex);
             if (!(e.code && e.msg)) {
@@ -43,11 +43,11 @@ export class Request {
         }
     }
 
-    static async post(url, data = {}, openLoad = true) {
+    static async post(url, data = {}, options = { openLoad: true, showMsg: true }) {
         let loadIndex;
-        if (openLoad) loadIndex = layui.layer.load(0, { id: 'RequestLoad' })
+        if (options?.openLoad) loadIndex = layui.layer.load(0, { id: 'RequestLoad' })
         try {
-            let res = await Request.newFetch(config.API_URI + url, {
+            let res = await Http.newFetch(config.API_URI + url, {
                 method: `POST`,
                 headers:
                     {
@@ -56,7 +56,7 @@ export class Request {
                     },
                 body: JSON.stringify(data)
             }).then(resp => resp.json());
-            return await Request.requestSuccess(res, loadIndex);
+            return await Http.requestSuccess(res, loadIndex, options);
         } catch (e) {
             loadIndex && layui.layer.close(loadIndex);
             if (!(e.code && e.msg)) {
@@ -67,19 +67,19 @@ export class Request {
         }
     }
 
-    static async requestSuccess(res, loadIndex) {
+    static async requestSuccess(res, loadIndex, options) {
         loadIndex && layui.layer.close(loadIndex);
         if (res.code === config.RESPONSE.STATUS_CODE.OK) {
             return res;
         } else if (res.code === config.RESPONSE.STATUS_CODE.LOGOUT) {
             //清空本地记录的 token
             CacheService.token = undefined
-            layui.layer.msg('登录已过期')
+            options.showMsg && layui.layer.msg('登录已过期')
             await PageUtils.toLogin();
             return Promise.reject(res)
         } else {
             let msg = `${ res[config.RESPONSE.MSG_NAME] || '请求失败：返回状态码异常' }`;
-            layui.layer.msg(msg)
+            options.showMsg && layui.layer.msg(msg)
             return Promise.reject(res)
         }
     }

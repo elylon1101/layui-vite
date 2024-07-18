@@ -1,7 +1,7 @@
 import { Page } from "../../framework/Page.js";
 import { config } from "../../config.js";
 import MD5 from 'md5-es'
-import { Request } from "../../util/Request.js";
+import { Http } from "../../util/Http.js";
 import { LoginCanvasUtil } from "../../util/LoginCanvasUtil.js";
 import { PageUtils } from "../../framework/PageUtils.js";
 import './login.css'
@@ -46,7 +46,7 @@ export class Login extends Page {
         data.password = MD5.hash(data.password);
         data.captchaFlag = CacheService.captchaFlag;
         data.type = 0
-        let loginRes = await Request.post('admin/login', data);
+        let loginRes = await Http.post('admin/login', data);
         CacheService.token = loginRes.data.token
         this.loginSuccess();
     }
