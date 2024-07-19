@@ -36,21 +36,8 @@ export class App {
             let getConfigPromise = Http.get(`system/getConfig`).then(res => {
                 CacheService.systemConfig = res.data
             });
-            // 获取工厂信息
-            let getFactoryInfoPromise = Http.get(`admin/getFactoryInfo`).then(res => {
-                CacheService.factoryInfo = res.data
-            })
-            // 获取管理员信息
-            let getCurrentPrinterPromise = Http.get('print/getCurrentPrinter').then(res => {
-                res.data.forEach(x => {
-                    if (x.options) {
-                        x.options = JSON.parse(x.options)
-                    }
-                    top.window.currentPrinterMap.set(x.type, x)
-                })
-            })
 
-            await Promise.all([getConfigPromise, getFactoryInfoPromise, getCurrentPrinterPromise])
+            await Promise.all([getConfigPromise])
 
             // 进入页面
             PageUtils.enter().then();

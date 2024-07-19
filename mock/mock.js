@@ -17,6 +17,18 @@ fetchMock.post('admin/login', () => {
     }
 })
 
+/** 登录 **/
+fetchMock.get('admin/getAdminInfo', () => {
+    return {
+        code: 0,
+        msg: "success",
+        data: {
+            token: '1234234234234234234',
+            type: 1
+        }
+    }
+})
+
 /** index */
 fetchMock.get('system/getConfig', () => {
     return {
