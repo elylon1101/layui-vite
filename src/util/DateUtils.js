@@ -21,6 +21,7 @@ export class DateUtils {
     static thisYear = layui.util.toDateString(new Date(), 'yyyy')
 
     static todayRange = layui.util.toDateString(new Date(), 'yyyy-MM-dd') + ` ~ ` + layui.util.toDateString(new Date(), 'yyyy-MM-dd')
+    static thisMonthDayRange = layui.util.toDateString(new Date(), 'yyyy-MM') + '-01' + ` ~ ` + layui.util.toDateString(new Date(), 'yyyy-MM-dd')
 
     /**
      * 获取指定月份的总天数

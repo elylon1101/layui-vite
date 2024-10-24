@@ -35,10 +35,6 @@ export class Http {
             return await Http.requestSuccess(res, loadIndex, options);
         } catch (e) {
             loadIndex && layui.layer.close(loadIndex);
-            if (!(e.code && e.msg)) {
-                let msg = `网络异常`;
-                layui.layer.msg(msg)
-            }
             return Promise.reject(e)
         }
     }
@@ -59,16 +55,37 @@ export class Http {
             return await Http.requestSuccess(res, loadIndex, options);
         } catch (e) {
             loadIndex && layui.layer.close(loadIndex);
-            if (!(e.code && e.msg)) {
-                let msg = `网络异常`;
-                layui.layer.msg(msg)
-            }
+            return Promise.reject(e)
+        }
+    }
+
+    static async postByUrl(url, data = {}, options = { openLoad: true, showMsg: true }) {
+        let loadIndex;
+        if (options?.openLoad) loadIndex = layui.layer.load(0, { id: 'RequestLoad' })
+        try {
+            let res = await Http.newFetch(url, {
+                method: `POST`,
+                headers:
+                    {
+                        [config.TOKEN]: CacheService.token,
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                body: JSON.stringify(data)
+            }).then(resp => resp.json());
+            return await Http.requestSuccess(res, loadIndex, options);
+        } catch (e) {
+            loadIndex && layui.layer.close(loadIndex);
             return Promise.reject(e)
         }
     }
 
     static async requestSuccess(res, loadIndex, options) {
         loadIndex && layui.layer.close(loadIndex);
+        if (res?.status !== undefined && (res.status < 300 && res.status >= 200)) {
+            let msg = `${ res[config.RESPONSE.MSG_NAME] || `网络状态码异常：${ res.status }` }`;
+            options.showMsg && layui.layer.msg(msg)
+            return Promise.reject(res)
+        }
         if (res.code === config.RESPONSE.STATUS_CODE.OK) {
             return res;
         } else if (res.code === config.RESPONSE.STATUS_CODE.LOGOUT) {

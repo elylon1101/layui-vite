@@ -15,7 +15,7 @@ export class MenuUtils {
             let hasChildren = menu.children && menu.children.length > 0
             let dataPage = hasChildren || !menu.link ? '' : `data-page="${ menu.link }"`
             dom += `<${ isChild ? `dl` : 'li' } class="layui-nav-item" ${ menu.attr }>`
-            dom += `<a ${ dataPage } href="javascript:;">${ icon }${ menu.name }</a>`
+            dom += `<a ${ dataPage } href="javascript:;">${ icon }<cite>${ menu.name }</cite></a>`
             if (hasChildren) {
                 dom += `<dl class="layui-nav-child">`
                 dom += this.genMenuDom(menu.children, true);

@@ -1,0 +1,29 @@
+.layui-side-menu .layui-nav .layui-nav-child .layui-nav-child a {
+    padding-left: 60px;
+}
+
+.layui-side-menu .layui-nav .layui-nav-item a {
+	height: 40px;
+    line-height: 40px;
+    padding-left: 45px;
+    padding-right: 30px;
+}
+
+.layui-side-menu .layui-nav > .layui-nav-item .layui-icon:first-child {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    margin-top: -19px;
+}
+
+
+.layui-side-menu .layui-nav i {
+	position: absolute;
+    top: 50%;
+    left: 20px;
+    margin-top: -19px;
+}
+
+.layui-side-menu .layui-nav .layui-nav-itemed > .layui-nav-child {
+	padding: 2px 0;
+}

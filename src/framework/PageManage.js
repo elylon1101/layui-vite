@@ -14,6 +14,7 @@ export class PageManage {
      */
     static addPage(page) {
         this.map.set(this.genPageKey(page.el, page.pagePath), page)
+        window.currentPage = page
     }
 
     static getPage(el, pagePath) {

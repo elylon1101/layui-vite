@@ -5,6 +5,7 @@ import { Http } from "./Http.js";
  * @property {string} selector DOM选择器
  * @property {string} url 数据请求地址
  * @property {any} reqData 请求参数
+ * @property {any} data 数据
  * @property {string} [valueKey=id] 数据中value的key @default id
  * @property {string} [nameKey=name] 数据中name的key @default name
  * @property {function} [getName] 获取选项显示的值，如果有该接口则默认使用该方法获取显示值，否则使用nameKey来获取显示值
@@ -17,17 +18,19 @@ export class FormUtils {
     /**
      * 渲染下拉框
      * @param  {RenderSelectOptions} options
-     * @return {Promise<any>}
+     * @return {Promise<void>}
      */
-    static async renderSelect(options) {
+    async renderSelect(options) {
         options.valueKey = options.valueKey || 'id';
         options.nameKey = options.nameKey || 'name';
         options.defaultValue = options.defaultValue || '';
-        options.defaultText = options.defaultText || '';
-        let res = await Http.get(options.url, options.reqData);
-        let dom = res.data.map(item => `<option value="${ item[options.valueKey] }" ${ item[options.valueKey] === options.selectValue ? 'selected ' : '' }>${ options.getName ? options.getName(item) : item[options.nameKey] }</option>`).join(' ')
+        let data = options.data;
+        if (!data) {
+            let res = await Http.get(options.url, options.reqData);
+            data = res.data
+        }
+        let dom = data.map(item => `<option value="${ item[options.valueKey] }" ${ item[options.valueKey] === options.selectValue ? 'selected ' : '' }>${ options.getName ? options.getName(item) : item[options.nameKey] }</option>`).join(' ')
         layui.$(options.selector).empty().append(`<option value="${ options.defaultValue }">${ options.defaultText }</option>`).append(dom);
         layui.form.render('select');
-        return res
     }
 }

@@ -1,6 +1,5 @@
 import { config } from "../config.js";
 import { MountUtils } from "./MountUtils.js";
-import { CacheService } from "../CacheService.js";
 
 export class PageUtils {
     /**
@@ -75,22 +74,5 @@ export class PageUtils {
         let $this = layui.$(`[lay-filter='menu'] [data-page='${ page }']`)
         $this.parent().addClass(`layui-this`)
         $this.parents('.layui-nav-item').addClass('layui-nav-itemed');
-    }
-
-    /**
-     * 进入页面
-     */
-    static async enter() {
-        // 如果未登陆则直接到登录页
-        if (!CacheService.token) {
-            await PageUtils.toLogin()
-            throw new Error('go to login')
-        }
-        // 根据账号类型跳转,管理员类别 0-超管 1-员工
-        if (CacheService.adminInfo.type === 0) {
-            await PageUtils.toIndex()
-        } else {
-            // await PageUtils.toWorkspace()
-        }
     }
 }

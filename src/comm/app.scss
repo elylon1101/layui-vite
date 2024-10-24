@@ -1,7 +1,7 @@
 $color: #ff5722;
 
 *[lay-verify*="required"] {
-    border-color: $color;
+    //border-color: $color;
 }
 
 .layui-input-group:has([lay-verify*="required"]) {
@@ -16,16 +16,17 @@ $color: #ff5722;
 
 .layui-form-item:has([lay-verify*="required"]) {
     .layui-form-label {
-        color: $color;
+        //color: $color;
 
         &:after {
             content: '*';
+            color: $color;
         }
     }
 }
 
 select[lay-verify*="required"] + .layui-form-select .layui-input {
-    border-color: $color;
+    //border-color: $color;
 }
 
 /* Flex横向布局  */
@@ -101,9 +102,30 @@ select[lay-verify*="required"] + .layui-form-select .layui-input {
     flex-direction: column;
 }
 
+:root {
+    --scrollbar-width: 4px;
+    --scrollbar-height: 8px;
+}
+
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
-    width: 4px;
+    width: var(--scrollbar-width, 4px);
+    height: var(--scrollbar-height, 8px);
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #c2c2c2;
+}
+
+[hasPermissions] {
+    display: none;
 }
 
 .pointer {
@@ -121,14 +143,24 @@ select[lay-verify*="required"] + .layui-form-select .layui-input {
     text-align: left;
 }
 
-.table-image img {
-    width: 45px;
-    height: 45px;
-    object-fit: cover;
+.table-image {
+    img {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+    }
+
+    &.long img {
+        width: 80px;
+        object-fit: cover;
+    }
 }
 
-.table-image.long img {
-    width: 80px;
-    object-fit: cover;
+.click {
+    color: #1e9fff;
+    cursor: pointer;
 }
 
+.pointer {
+    cursor: pointer;
+}

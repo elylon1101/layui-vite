@@ -4,7 +4,7 @@ import { Http } from "../../util/Http.js";
 import { MenuUtils } from "../../framework/MenuUtils.js";
 import { PageUtils } from "../../framework/PageUtils.js";
 import './menu.css'
-import './index.css'
+import './index.scss'
 import MD5 from "md5-es";
 import { default as updatePwdForm } from "./updatePwd.html?raw"
 import { CacheService } from "../../CacheService.js";

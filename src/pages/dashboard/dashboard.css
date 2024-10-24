@@ -1,77 +1,87 @@
-.quick-release {
-    display: flex;
-    justify-content: center;
-    font-size: 16px;
-    margin-top: 50px;
-    overflow-x: scroll;
+.quick-entrance {
+    font-size: 14px;
+    font-weight: 700;
+    color: #16b777;
+    height: 82px !important;
+
+    & > div:hover {
+        cursor: pointer;
+        color: #1e9fff;
+    }
+
+    i {
+        font-size: 28px;
+        margin-bottom: -10px;
+    }
 }
 
-.quick-release .quick-release-item {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100px;
-    position: relative;
+.layui-card.panel {
+    border-radius: 5px;
+
+    .layui-card-header {
+        height: 42px;
+        line-height: 42px;
+        padding: 0 15px;
+        border-bottom: 1px solid #f6f6f6;
+        color: #333;
+        border-radius: 2px 2px 0 0;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .card-header-title {
+            margin: 0 5px 0 10px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .layui-form {
+            display: flex;
+        }
+    }
+
+    .layui-card-body {
+        height: 40px;
+        line-height: 50px;
+        padding: 15px;
+
+        & > p {
+            height: 100%;
+            line-height: normal;
+            font-size: 38px;
+            color: #666;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-all;
+            white-space: nowrap;
+        }
+    }
+
+    &.chart .layui-card-body {
+        height: 260px;
+    }
+
+    &.chart.table .layui-card-body {
+        height: 430px;
+    }
+
+    .admin-card-footer {
+        height: 22px;
+        padding: 10px 15px;
+    }
 }
 
-.quick-release .quick-release-item.arrow {
-    width: 80px;
-}
+.layui-timeline-item {
+    padding-bottom: 10px;
 
+    .layui-timeline-title {
+        margin-bottom: 0;
+    }
 
-.quick-release .line {
-    height: 1px;
-    width: 50px;
-    background-color: #666666;
-
-}
-
-.quick-release .quick-release-icon {
-    display: flex;
-    align-items: center;
-    width: 80px;
-    height: 80px;
-    justify-content: center;
-    margin-bottom: 10px;
-
-}
-
-.quick-release .quick-release-item.arrow .quick-release-icon{
-    width: 50px;
-}
-
-.quick-release .demand-icon-bg {
-    background-color: #1e9fff;
-    border-radius: 50%;
-}
-
-.quick-release .badge {
-    position: absolute;
-    right: -10px;
-    top: 0;
-}
-
-.quick-release .quick-release-icon .icon {
-    width: 45px;
-    height: 45px;
-}
-
-.quick-release .quick-release-icon .rightArrowPng {
-    width: 50px;
-    height: 50px;
-}
-
-.quick-release .demand-title {
-    height: 30px;
-    width: 100%;
-    text-align: center;
-}
-
-.quick-release + .tips {
-    font-size: 16px;
-    color: #666666;
-    text-align: center;
-    width: 100%;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    .layui-timeline-content {
+        p {
+            margin-top: 8px;
+        }
+    }
 }

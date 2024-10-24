@@ -1,5 +1,6 @@
 import 'layui/dist/css/layui.css'
 import './comm/app.scss'
+import './lib/inputTag.css'
 import 'layui'
 import './util/layuiUtils.js'
 import './util/windowUtils.js'
@@ -10,37 +11,41 @@ import { LoadLayuiModelUtil } from "./framework/LoadLayuiModelUtil.js";
 import { Comm } from "./comm/Comm.js";
 import { Http } from "./util/Http.js";
 import { CacheService } from "./CacheService.js";
-import '/xm-select.js?url'
+import '../public/xm-select.js'
+import { config } from "./config.js";
+import packageInfo from '../package.json'
 
 export class App {
-    static run() {
+    static async run() {
         // Comm.checkDevice()
-
         layui.link('https://at.alicdn.com/t/c/font_4032348_0o5jwugrbk8q.css');
-
-        // 标记是否是electron客户端
-        window.isPcClient = window.electronAPI !== undefined
 
         // 加载layui的第三方库
         LoadLayuiModelUtil.load(["layarea", "inputTag", "image", 'camera']).then(async () => {
             Comm.registerTips()
             // 开启权限
             Permissions.exec();
-
             // 获取管理员信息
-            let res = await Http.get(`admin/getAdminInfo`, {}, { showMsg: false })
-            CacheService.adminTypeChange = CacheService.adminInfo?.type !== res.data?.type
-            CacheService.adminInfo = res.data
-
+            await Comm.reloadAdminInfo();
             //获取系统配置
             let getConfigPromise = Http.get(`system/getConfig`).then(res => {
                 CacheService.systemConfig = res.data
             });
-
             await Promise.all([getConfigPromise])
-
             // 进入页面
-            PageUtils.enter().then();
+            this.enter().then();
         })
+    }
+
+    /**
+     * 进入页面
+     */
+    static async enter() {
+        // 如果未登陆则直接到登录页
+        if (!CacheService.token) {
+            await PageUtils.toLogin()
+            throw new Error('go to login')
+        }
+        await PageUtils.toIndex()
     }
 }

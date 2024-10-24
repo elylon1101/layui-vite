@@ -1,11 +1,11 @@
 import { Page } from "../../framework/Page.js";
 import { Http } from "../../util/Http.js";
-import { StatusFormatUtils } from "../../util/StatusFormatUtils.js";
+import { EnumFormatUtils } from "../../util/EnumFormatUtils.js";
 import './dashboard.css'
 import { PageUtils } from "../../framework/PageUtils.js";
 import * as echarts from 'echarts';
 // 加载主题
-import '../../../public/echartsTheme/them.js'
+import '../../comm/echartsTheme/them.js'
 
 export class Dashboard extends Page {
 
@@ -121,7 +121,7 @@ export class Dashboard extends Page {
                 }
                 , {
                     field: 'status', title: '状态', width: 80, align: 'center', templet: (d) => {
-                        return StatusFormatUtils.orderStatus(d.status)
+                        return EnumFormatUtils.washStatus(d.status)
                     }
                 }
             ] ]
