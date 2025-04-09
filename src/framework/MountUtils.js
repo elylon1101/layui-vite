@@ -6,7 +6,13 @@ export class MountUtils {
         if (!pagePath) {
             throw Error(`pagePath is undefined`);
         }
-        let Module = await import(`../pages/${ pagePath }/${ MountUtils.firstUpperCase(pagePath) }.js`)
+        let pagePathSplit = pagePath.split('/');
+        let jsName = pagePathSplit[pagePathSplit.length - 1];
+        let filePath = pagePath;
+        if (pagePathSplit.length > 1) {
+            filePath = pagePathSplit.slice(0, -1).join('/');
+        }
+        let Module = await import(`../pages/${ filePath }/${ MountUtils.firstUpperCase(jsName) }.js`)
         let paths = Object.keys(Module);
         if (!paths || paths.length === 0) {
             throw Error(`page router not find`);
@@ -17,7 +23,7 @@ export class MountUtils {
         if (!(Module[paths[0]].prototype instanceof Page)) {
             throw Error(`page:${ pagePath } need extends Page class`)
         }
-        let Node = await import(`../pages/${ pagePath }/${ pagePath }.html?raw`)
+        let Node = await import(`../pages/${ filePath }/${ jsName }.html?raw`)
         let pageIns = new Module[paths[0]](el, Node.default, pagePath, param);
         await pageIns.start()
         return pageIns;
